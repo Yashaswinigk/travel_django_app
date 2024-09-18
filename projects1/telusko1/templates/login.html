@@ -1,50 +1,124 @@
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login page</title> 
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'login.css'%}">
+    <title>Login Page</title>
     
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> <!-- For icons 
+    -->
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #43cea2, #185a9d);
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2.title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .input-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ccc;
+            padding: 5px 0;
+        }
+
+        .input-field i {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #888;
+        }
+
+        .input-field input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .input-field input::placeholder {
+            color: #aaa;
+        }
+
+        .btn {
+            background-color: #43cea2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #185a9d;
+        }
+
+        .message-box {
+            margin-top: 15px;
+            font-size: 14px;
+            color: red;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+
 </head>
-
 <body>
+    <div class="login-container">
+        <form action="login" method="post">
+            {% csrf_token %}
+            <h2 class="title">Login</h2>
+            <div class="input-field">
+                <i class="bx bx-user"></i>
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <div class="input-field">
+                <i class="bx bx-lock-alt"></i>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <input type="submit" class="btn" value="Login">
+        </form>
 
-    
-                <form action="login" method="post">
+        <div class="message-box">
+            {% for message in messages %}
+            <h3>{{ message }}</h3>
+            {% endfor %}
+        </div>
+    </div>
 
-                    {% csrf_token %}
-
-                    <div class="box">
-                        <div class="container">
-                            <div class="input-field">
-                                <input type="text" name="username" placeholder="username"><br>
-                                <i class="bx bx-user"></i>
-                            </div>
-                            <div class="input-field">
-                                <input type="password" name="password" placeholder="password"><br>
-                                <i class="bx bx-lock-alt"></i>
-                            </div>
-                            
-                            
-                            <input type="submit">
-                        </div>
-                        
-                    </div>
-                    
-                </form>
-            
-                <div>
-                    {% for message in messages %}
-                    <h3> {{message}}</h3>
-                    {% endfor %}
-                </div>
   
-
-
 </body>
 </html>
